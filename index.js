@@ -42,7 +42,7 @@ client.on("message", async message => {
    
   const command = args.shift().toLowerCase();
   if (message.author.bot) return;
-  if (!messageLower.includes("k?")) return;
+  if (!messageLower.includes(",")) return;
   const output = await message.channel.send("Thinking..."); //Reply that we are gonna edit
   //COMMANDS!!!!!!
   switch (command) {
@@ -53,7 +53,7 @@ client.on("message", async message => {
       );
       break;
     case "changegame":
-      const text = message.content.substr("k?changegame ".length);
+      const text = message.content.substr(",changegame ".length);
       fs.writeFile("views/game.txt", text, err => {
         if (err) throw err;
       });
@@ -68,8 +68,6 @@ client.on("message", async message => {
     // console.log(karmaresponse.data[await getID(args[0])])
     output.edit(`${args[0]} has ${karmaresponse.data.data[await getID(args[0])].statistics.basic.karma} karma`)
     break;
-    default:
-      message.reply("That's not a command!");
   }
 });
 client.login();

@@ -26,8 +26,8 @@ client.on("ready", () => {
   client.user.setActivity(fs.readFileSync("views/game.txt", "utf8"));
 });
 
-  async function getID(args) {
-      const response = await axios.get(`https://api.worldofwarships.com/wows/account/list/?application_id=800d0ce153c439b22f316480d15f7f09&search=${args}&fields=account_id`);
+  async function getID(usrnm) { //function to get account ID from username
+      const response = await axios.get(`https://api.worldofwarships.com/wows/account/list/?application_id=800d0ce153c439b22f316480d15f7f09&search=${usrnm}&fields=account_id`);
       
       return response.data.data[0].account_id
   }
@@ -42,8 +42,8 @@ client.on("message", async message => {
    
   const command = args.shift().toLowerCase();
   if (message.author.bot) return;
-  if (!messageLower.includes(",")) return;
-  const output = await message.channel.send("Thinking..."); //Reply that we are gonna edit
+  if (message.content.indexOf(process.env.PREFIX) !== 0) return;
+  const output = await message.channel.send("Thinking..."); //Response that we are gonna edit
   //COMMANDS!!!!!!
   switch (command) {
     case "ping":
@@ -65,7 +65,6 @@ client.on("message", async message => {
     case "karma":
      const karmaresponse = await axios.get
      (`http://vortex.worldofwarships.com/api/accounts/${await getID(args[0])}/`);
-    // console.log(karmaresponse.data[await getID(args[0])])
     output.edit(`${args[0]} has ${karmaresponse.data.data[await getID(args[0])].statistics.basic.karma} karma`)
     break;
   }

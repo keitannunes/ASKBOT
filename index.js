@@ -49,7 +49,7 @@ client.on("message", async message => {
     case "ping":
       console.log(`${message.author.username} used ping`);
       output.edit(
-        `Pong! Latency is ${hello.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`
+        `Pong! Latency is ${output.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`
       );
       break;
     case "changegame":
@@ -67,7 +67,6 @@ client.on("message", async message => {
      (`http://vortex.worldofwarships.com/api/accounts/${await getID(args[0])}/`);
     output.edit(`${args[0]} has ${karmaresponse.data.data[await getID(args[0])].statistics.basic.karma} karma`)
     break;
-    //hello!!!!!
   }
 });
 client.login(process.env.DISCORD_TOKEN);

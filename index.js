@@ -70,4 +70,4 @@ client.on("message", async message => {
     //hello!!!!!
   }
 });
-client.login();
+client.login(process.env.DISCORD_TOKEN);

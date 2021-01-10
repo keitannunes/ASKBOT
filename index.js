@@ -27,7 +27,7 @@ client.on("ready", () => {
 });
 
   async function getID(usrnm) { //function to get account ID from username
-      const response = await axios.get(`https://api.worldofwarships.com/wows/account/list/?application_id=800d0ce153c439b22f316480d15f7f09&search=${usrnm}&fields=account_id`);
+      const response = await axios.get(`https://api.worldofwarships.com/wows/account/list/?application_id=${process.env.APP_ID}&search=${usrnm}&fields=account_id`);
       
       return response.data.data[0].account_id
   }

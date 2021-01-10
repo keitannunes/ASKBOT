@@ -67,6 +67,8 @@ client.on("message", async message => {
      (`http://vortex.worldofwarships.com/api/accounts/${await getID(args[0])}/`);
     output.edit(`${args[0]} has ${karmaresponse.data.data[await getID(args[0])].statistics.basic.karma} karma`)
     break;
+    default:
+      output.edit("That's not a command!")
   }
 });
 client.login(process.env.DISCORD_TOKEN);

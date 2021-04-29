@@ -26,12 +26,6 @@ client.on("ready", () => {
   client.user.setActivity(fs.readFileSync("views/game.txt", "utf8"));
 });
 
-async function getID(usrnm) { //function to get account ID from username
-  const response = await axios.get(`https://api.worldofwarships.com/wows/account/list/?application_id=${process.env.APP_ID}&search=${usrnm}&fields=account_id`);
-
-  return response.data.data[0].account_id
-}
-
 client.on("message", async message => {
 
   const messageLower = message.content.toLowerCase();
@@ -51,21 +45,6 @@ client.on("message", async message => {
       output.edit(
         `Pong! Latency is ${output.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`
       );
-      break;
-    case "changegame":
-      const text = message.content.substr(",changegame ".length);
-      fs.writeFile("views/game.txt", text, err => {
-        if (err) throw err;
-      });
-      client.user.setActivity(text);
-      output.edit(`changed bot's activity to: ${text}`);
-      console.log(`${message.author.username} changed game to ${text}`);
-      return;
-      break;
-    case "karma":
-      const karmaresponse = await axios.get
-        (`http://vortex.worldofwarships.com/api/accounts/${await getID(args[0])}/`);
-      output.edit(`${args[0]} has ${karmaresponse.data.data[await getID(args[0])].statistics.basic.karma} karma`)
       break;
     default:
       output.edit("That's not a command!")

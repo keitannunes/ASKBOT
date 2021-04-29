@@ -42,9 +42,31 @@ client.on("message", async message => {
   switch (command) {
     case "ping":
       console.log(`${message.author.username} used ping`);
-      output.edit(
-        `Pong! Latency is ${output.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`
-      );
+      //output.edit(
+      //  `Pong! Latency is ${output.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`
+      //);
+      output.edit('Stop')
+      break;
+    case "ask":
+      output.edit('Are you ok?')
+      var userReplied = false
+      const filter = (m) => { //define filter (i actually dont know what this does)
+        return m.author.id === message.author.id
+      };
+
+      const collector = message.channel.createMessageCollector(filter, { time: 15000, max: 1 }); // declare collector with max wait time 15 sec and 1 reply
+      
+      collector.on('collect', m => {//runs when collected something
+        console.log(`Collected ${m.content}`);
+        userReplied = true;
+      });
+
+      collector.on('end', collected => { //runs when collector stops collecting
+        console.log(`Collected ${collected.size} items`);
+        if (!userReplied) { //checks if man dont respond
+          message.channel.send("Are you still here?")
+        }
+      });
       break;
     default:
       output.edit("That's not a command!")

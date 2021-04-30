@@ -3,7 +3,6 @@ const fs = require("fs");
 const discord = require("discord.js");
 const client = new discord.Client();
 const path = require('path');
-const axios = require('axios');
 const redditApiImageGetter = require('reddit-api-image-getter')
 const getter = new redditApiImageGetter()
 
@@ -43,7 +42,7 @@ client.on("message", async message => {
   if (!message.member.roles.cache.has('837731710468751400')) return; //ignores messages from uesrs without role
   if (message.content.indexOf(process.env.PREFIX) !== 0) return; //ignores messages without prefix in .env file
   const output = await message.channel.send("Thinking..."); //Response that we are gonna edit
-  
+
   //COMMANDS!!!!!!
   switch (command) {
     case "ping":
@@ -84,8 +83,24 @@ client.on("message", async message => {
       //chooses random file from dir and replies to user
       var files = fs.readdirSync(__dirname + '/images/hot/aww/')
       chosenFile = files[Math.floor(Math.random() * files.length)]
-      output.delete()//delets the thinking... message
       message.reply("Here is an image from r/aww", { files: ['images/hot/aww/' + chosenFile] })//sends file
+      output.delete()//delets the thinking... message
+      break;
+
+    case "wholesomememes":
+       //gets new hot images from r/wholesomememes and puts it in /images/hot/wholesomememes
+       getter.getHotImagesOfSubReddit('wholesomememes').then(function (result) {
+        for (imageEntry of result) {
+          const targetDirectory = path.resolve(__dirname, 'images', 'hot');
+          getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
+        }
+      })
+
+      //chooses random file from dir and replies to user
+      var files = fs.readdirSync(__dirname + '/images/hot/wholesomememes/')
+      chosenFile = files[Math.floor(Math.random() * files.length)]
+      message.reply("Here is an image from r/wholesomememes", { files: ['images/hot/wholesomememes/' + chosenFile] })//sends file
+      output.delete()//delets the thinking... message
       break;
 
     default://when command doens't match any cases

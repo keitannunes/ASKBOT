@@ -1,3 +1,9 @@
+/*
+AS3K BOT v0.X
+Developed by Keitan, Sohan, Salih, Arian, Sidd
+*/
+
+//declaring objects
 const http = require("http");
 const fs = require("fs");
 const discord = require("discord.js");
@@ -5,6 +11,7 @@ const client = new discord.Client();
 const path = require('path');
 const redditApiImageGetter = require('reddit-api-image-getter')
 const getter = new redditApiImageGetter()
+const axios = require("axios")
 
 require('dotenv').config();
 
@@ -40,7 +47,7 @@ client.on("message", async message => {
   const command = args.shift().toLowerCase();
   if (message.author.bot) return; //ignores messages from bots
   if (!message.member.roles.cache.has('837731710468751400')) return; //ignores messages from uesrs without role
-  if (message.content.indexOf(process.env.PREFIX) !== 0) return; //ignores messages without prefix in .env file
+  if (message.content.indexOf(process.env.PREFIX) !== 0) return; // ignores messages without prefix in .env file
   const output = await message.channel.send("Thinking..."); //Response that we are gonna edit
 
   //COMMANDS!!!!!!
@@ -50,7 +57,7 @@ client.on("message", async message => {
       output.edit(`Pong! Latency is ${output.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
       break;
     case "ask":
-      output.edit('Are you ok?')
+      output.edit("Hey! It's Askbot! How may I help you?")
       var userReplied = false
       const filter = (m) => { //define filter (i actually dont know what this does)
         return m.author.id === message.author.id
@@ -61,6 +68,15 @@ client.on("message", async message => {
       collector.on('collect', m => {//runs when collected something
         console.log(`Collected ${m.content}`);
         userReplied = true;
+        /*
+        axios.get(`https://askbot.cognitiveservices.azure.com/luis/prediction/v3.0/apps/4f2bc2de-c926-4510-9dfc-721e564d9d10/slots/staging/predict?subscription-key=ab3f9c7287ac4b8fbcdcda755413916c&verbose=true&show-all-intents=true&log=true&query=${m.content}`).then(function (response) {
+          console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error);
+            output.edit(error)
+          })
+          */
       });
 
       collector.on('end', collected => { //runs when collector stops collecting
@@ -79,7 +95,13 @@ client.on("message", async message => {
           getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
         }
       })
-
+      //r/eyebleach
+      getter.getHotImagesOfSubReddit('eyebleach').then(function (result) {
+        for (imageEntry of result) {
+          const targetDirectory = path.resolve(__dirname, 'images', 'hot');
+          getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
+        }
+      })
       //chooses random file from dir and replies to user
       var files = fs.readdirSync(__dirname + '/images/hot/aww/')
       chosenFile = files[Math.floor(Math.random() * files.length)]
@@ -94,7 +116,7 @@ client.on("message", async message => {
           const targetDirectory = path.resolve(__dirname, 'images', 'hot');
           getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
         }
-      })
+      });
 
       //chooses random file from dir and replies to user
       var files = fs.readdirSync(__dirname + '/images/hot/wholesomememes/')
@@ -102,7 +124,23 @@ client.on("message", async message => {
       message.reply("Here is an image from r/wholesomememes", { files: ['images/hot/wholesomememes/' + chosenFile] })//sends file
       output.delete()//delets the thinking... message
       break;
-
+    case "quote":
+      axios.get('https://zenquotes.io/api/random').then(function (response) {
+      output.edit(response.data[0].q)
+      })
+      .catch(function (error) {
+        console.log(error);
+        output.edit(error)
+      })
+      break;
+    case "affirmation":
+      axios.get('https://www.affirmations.dev').then(function (response) {
+        output.edit(response.data.affirmation)
+      }).catch(function (error) {
+        console.log(error);
+        output.edit(error);
+      })
+      break;
     default://when command doens't match any cases
       output.edit("That's not a command!")
   }

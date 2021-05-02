@@ -68,15 +68,6 @@ client.on("message", async message => {
       collector.on('collect', m => {//runs when collected something
         console.log(`Collected ${m.content}`);
         userReplied = true;
-        /*
-        axios.get(`https://askbot.cognitiveservices.azure.com/luis/prediction/v3.0/apps/4f2bc2de-c926-4510-9dfc-721e564d9d10/slots/staging/predict?subscription-key=ab3f9c7287ac4b8fbcdcda755413916c&verbose=true&show-all-intents=true&log=true&query=${m.content}`).then(function (response) {
-          console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error);
-            output.edit(error)
-          })
-          */
       });
 
       collector.on('end', collected => { //runs when collector stops collecting

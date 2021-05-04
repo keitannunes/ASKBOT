@@ -32,9 +32,9 @@ async function luisPrediction(query) {
 }
 
 function isEmpty(obj) {
-  for(var key in obj) {
-      if(obj.hasOwnProperty(key))
-          return false;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key))
+      return false;
   }
   return true;
 }
@@ -73,7 +73,7 @@ client.on("message", async message => {
   if (message.author.bot) return; //ignores messages from bots
   if (!message.member.roles.cache.has('837731710468751400')) {//ignores messages from uesrs without role
     message.reply("You are missing perms...");
-    return; 
+    return;
   }
   if (message.content.indexOf(process.env.PREFIX) !== 0) return; // ignores messages without prefix in .env file
   output = await message.channel.send("Thinking..."); //Response that we are gonna edit
@@ -124,10 +124,10 @@ client.on("message", async message => {
       switch (luisResponse.topIntent) {
         case "sendImage":
           //Animal Image
-          if (isEmpty(luisResponse.entities)){//when there are no entities
+          if (isEmpty(luisResponse.entities)) {//when there are no entities
             output.edit(noneResponse[Math.floor(Math.random() * noneResponse.length)]);
             return;
-          } 
+          }
           if (luisResponse.entities.imageType[0].hasOwnProperty('aww')) {
             if (!awwDownloaded) {
               //gets new hot images from r/aww and puts it in /images/hot/aww
@@ -150,7 +150,7 @@ client.on("message", async message => {
             var files = fs.readdirSync(__dirname + '/images/hot/aww/')
             chosenFile = files[Math.floor(Math.random() * files.length)]
             message.reply("Here is an image from r/aww", { files: ['images/hot/aww/' + chosenFile] })//returns file
-            output.delete() //delete thinking.. messag
+            output.delete() //delete thinking.. message
           }
           else if (luisResponse.entities.imageType[0].hasOwnProperty('meme')) {
             if (!memeDownloaded) {
@@ -168,7 +168,9 @@ client.on("message", async message => {
             chosenFile = files[Math.floor(Math.random() * files.length)]
             message.reply("Here is an image from r/wholesomememes", { files: ['images/hot/wholesomememes/' + chosenFile] })//sends file
             output.delete()//delets the thinking... message
+
           }
+          break;
         case "featurelist":
           output.edit("Our full feature list can be found here:")
 
@@ -179,62 +181,62 @@ client.on("message", async message => {
       } // end switch
       break;
 
-/*
-    case "aww":
-      //gets new hot images from r/aww and puts it in /images/hot/aww
-      getter.getHotImagesOfSubReddit('aww').then(function (result) {
-        for (imageEntry of result) {
-          const targetDirectory = path.resolve(__dirname, 'images', 'hot');
-          getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
-        }
-      })
-      //r/eyebleach
-      getter.getHotImagesOfSubReddit('eyebleach').then(function (result) {
-        for (imageEntry of result) {
-          const targetDirectory = path.resolve(__dirname, 'images', 'hot');
-          getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
-        }
-      })
-      //chooses random file from dir and replies to user
-      var files = fs.readdirSync(__dirname + '/images/hot/aww/')
-      chosenFile = files[Math.floor(Math.random() * files.length)]
-      message.reply("Here is an image from r/aww", { files: ['images/hot/aww/' + chosenFile] })//sends file
-      output.delete()//delets the thinking... message
-      break;
-
-    case "wholesomememes":
-      //gets new hot images from r/wholesomememes and puts it in /images/hot/wholesomememes
-      getter.getHotImagesOfSubReddit('wholesomememes').then(function (result) {
-        for (imageEntry of result) {
-          const targetDirectory = path.resolve(__dirname, 'images', 'hot');
-          getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
-        }
-      });
-
-      //chooses random file from dir and replies to user
-      var files = fs.readdirSync(__dirname + '/images/hot/wholesomememes/')
-      chosenFile = files[Math.floor(Math.random() * files.length)]
-      message.reply("Here is an image from r/wholesomememes", { files: ['images/hot/wholesomememes/' + chosenFile] })//sends file
-      output.delete()//delets the thinking... message
-      break;
-
-    case "quote":
-      axios.get('https://zenquotes.io/api/random').then(function (response) {
-        output.edit(response.data[0].q)
-      })
-        .catch(function (error) {
-          console.log(error);
-          output.edit(error)
-        })
-      break;
-    case "affirmation":
-      axios.get('https://www.affirmations.dev').then(function (response) {
-        output.edit(response.data.affirmation)
-      }).catch(function (error) {
-        console.log(error);
-      })
-      break;
-      */
+    /*
+        case "aww":
+          //gets new hot images from r/aww and puts it in /images/hot/aww
+          getter.getHotImagesOfSubReddit('aww').then(function (result) {
+            for (imageEntry of result) {
+              const targetDirectory = path.resolve(__dirname, 'images', 'hot');
+              getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
+            }
+          })
+          //r/eyebleach
+          getter.getHotImagesOfSubReddit('eyebleach').then(function (result) {
+            for (imageEntry of result) {
+              const targetDirectory = path.resolve(__dirname, 'images', 'hot');
+              getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
+            }
+          })
+          //chooses random file from dir and replies to user
+          var files = fs.readdirSync(__dirname + '/images/hot/aww/')
+          chosenFile = files[Math.floor(Math.random() * files.length)]
+          message.reply("Here is an image from r/aww", { files: ['images/hot/aww/' + chosenFile] })//sends file
+          output.delete()//delets the thinking... message
+          break;
+    
+        case "wholesomememes":
+          //gets new hot images from r/wholesomememes and puts it in /images/hot/wholesomememes
+          getter.getHotImagesOfSubReddit('wholesomememes').then(function (result) {
+            for (imageEntry of result) {
+              const targetDirectory = path.resolve(__dirname, 'images', 'hot');
+              getter.saveRedditImageEntryToDisk(imageEntry, targetDirectory);//saves to the folder
+            }
+          });
+    
+          //chooses random file from dir and replies to user
+          var files = fs.readdirSync(__dirname + '/images/hot/wholesomememes/')
+          chosenFile = files[Math.floor(Math.random() * files.length)]
+          message.reply("Here is an image from r/wholesomememes", { files: ['images/hot/wholesomememes/' + chosenFile] })//sends file
+          output.delete()//delets the thinking... message
+          break;
+    
+        case "quote":
+          axios.get('https://zenquotes.io/api/random').then(function (response) {
+            output.edit(response.data[0].q)
+          })
+            .catch(function (error) {
+              console.log(error);
+              output.edit(error)
+            })
+          break;
+        case "affirmation":
+          axios.get('https://www.affirmations.dev').then(function (response) {
+            output.edit(response.data.affirmation)
+          }).catch(function (error) {
+            console.log(error);
+          })
+          break;
+          */
     default: //when command doens't match any cases
       output.edit("That's not a command!")
   }

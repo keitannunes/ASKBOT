@@ -1,6 +1,8 @@
 /*
 AS3K BOT v0.X
-Developed by Keitan, Sohan, Salih, Arian, Sidd
+Developed by Keitan Nunes
+
+aaaaaaaaaaaaaaaaaaaaaaa
 */
 
 //declaring objects
@@ -17,7 +19,7 @@ require('dotenv').config();
 
 //stuff
 awwDownloaded = false;
-memeDownloaded = true;
+memeDownloaded = false;
 const noneResponse = [
   "Sorry, I didn't get that",
   "Sorry, can you repeat that?",

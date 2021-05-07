@@ -127,7 +127,7 @@ client.on("message", async message => {
         case "sendImage":
           //Animal Image
           if (isEmpty(luisResponse.entities)) {//when there are no entities
-            output.edit(noneResponse[Math.floor(Math.random() * noneResponse.length)]);
+            output.edit(noneResponse[Math.floor(Math.random() * noneResponse.length)] + " [ERROR CODE: 1]");
             return;
           }
           if (luisResponse.entities.imageType[0].hasOwnProperty('aww')) {
@@ -179,7 +179,7 @@ client.on("message", async message => {
           break;
 
         case "None"://when luis doesn't think when its any of my other intents
-          output.edit(noneResponse[Math.floor(Math.random() * noneResponse.length)])//randomly chooses one of the random none responses
+          output.edit(noneResponse[Math.floor(Math.random() * noneResponse.length)] + " [ERROR CODE: 0]")//randomly chooses one of the random none responses
       } // end switch
       break;
 

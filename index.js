@@ -73,10 +73,7 @@ client.on("message", async message => {
 
   const command = args.shift().toLowerCase();
   if (message.author.bot) return; //ignores messages from bots
-  if (!message.member.roles.cache.has('837731710468751400')) {//ignores messages from uesrs without role
-    message.reply("You are missing perms...");
-    return;
-  }
+  if (!message.member.roles.cache.has('837731710468751400')) return;
   if (message.content.indexOf(process.env.PREFIX) !== 0) return; // ignores messages without prefix in .env file
   output = await message.channel.send("Thinking..."); //Response that we are gonna edit
 

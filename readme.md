@@ -1,4 +1,4 @@
- Welcome to AS3K Chatbot! v0.0
+# Welcome to AS3K Chatbot! v0.0
 **[ASK3BOT](https://github.com/keitannunes/ASKBOT)**  is an open source AI companion bot that is intigrated into Discord.  It acts as a virtual friend and texts supportive comments and sends memes. 
 
 # Commands

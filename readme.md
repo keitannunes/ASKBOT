@@ -7,34 +7,34 @@ Commands are applied using the .askbot prefix. Currently there are three main co
 
 ## Wholesome meme command
 
-The first command looks on r/wholesomememes and creates a database of images to give the user. The user can use various commands including: 
-.askbot send me a meme
-.askbot send meme
-.askbot send an image of a meme
-.askbot show me a meme
-.askbot can I have a meme
-.askbot send me another meme
-.askbot memes
-.askbot funny image
+The first command looks on r/wholesomememes and creates a database of images to give the user. The user can use various commands including: <br/>  
+.askbot send me a meme  
+.askbot send meme  
+.askbot send an image of a meme  
+.askbot show me a meme  
+.askbot can I have a meme  
+.askbot send me another meme  
+.askbot memes  
+.askbot funny image  
 
 
 ## Animal image command
 
-The second command looks on r/aww and creates a database of images to give the user. The user can use various commands including: 
-.askbot send me an image of an animal
-.askbot send me an animal
-.askbot animal please
-.sakbot send me an animal picture
-.askbot can you send me an animal pic
-.askbot send me a picture of a pet
-.askbot pet
-.askbot animal
+The second command looks on r/aww and creates a database of images to give the user. The user can use various commands including: <br/>  
+.askbot send me an image of an animal  
+.askbot send me an animal  
+.askbot animal please  
+.askbot send me an animal picture  
+.askbot can you send me an animal pic  
+.askbot send me a picture of a pet  
+.askbot pet  
+.askbot animal  
 
 ## Help
 
-The help command would give a list of features.
-.askbot help
-.askbot assistance
-.askbot what can you do 
-.askbot features
-.askbot what are your features
+The help command would give a list of features.  
+.askbot help  
+.askbot assistance  
+.askbot what can you do  
+.askbot features  
+.askbot what are your features  

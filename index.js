@@ -171,8 +171,7 @@ client.on("message", async message => {
           }
           break;
         case "featurelist":
-          output.edit("Our full feature list can be found here:")
-
+          output.edit("Our full feature list can be found here: https://github.com/keitannunes/ASKBOT/blob/master/readme.md")
           break;
 
         case "None"://when luis doesn't think when its any of my other intents

@@ -38,3 +38,6 @@ The help command would give a list of features.
 .askbot what can you do  
 .askbot features  
 .askbot what are your features  
+
+## Resources
+Profile picture is from  [https://www.freepik.com/vectors/computer%22%3EComputer] created by pch.vector
